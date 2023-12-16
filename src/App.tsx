@@ -1,33 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Button } from 'flowbite-react'
+import { beginAuthFlow, onRedirect } from './oauth'
+import { useContext, useEffect } from 'react'
+import { AuthContext } from './contexts/AuthContext';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { token, updateToken } = useContext(AuthContext);
+  console.log(token);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    if (urlParams.get('code') !== null) {
+      onRedirect(updateToken);
+    }
+  }, []);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <div>Pochven Payout</div>
+      <Button outline gradientDuoTone="redToYellow" onClick={() => beginAuthFlow()}>Button</Button>
     </>
   )
 }
