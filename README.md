@@ -4,7 +4,7 @@ EVE Online Pochven Pay Tool
 # Requirements
 
 ## Setup
-- Get Names from Fleet Chat (Ctrl A, Ctrl C, Ctrl V, one name per newline)
+- Get Names from Fleet Chat (Ctrl A, Ctrl C, Ctrl V, one name per newline, might be able to use the fleet api?)
 - Check Local Storage Look Up Table for Known Alts
 - For any unknown ones, drag them on top of their owners to sort them
 - Allow exporting of known alt lists
