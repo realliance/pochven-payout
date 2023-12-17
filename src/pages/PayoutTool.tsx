@@ -1,9 +1,13 @@
-import { Avatar, Card } from "flowbite-react";
+import { Avatar } from "flowbite-react";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
+import { useFleetAPI } from "../utils/fleet";
 
 export function PayoutTool() {
-  const { identity, profile, logout } = useContext(AuthContext);
+  const { identity, logout } = useContext(AuthContext);
+  const fleetContext = useFleetAPI();
+
+  console.log(fleetContext);
 
   return (
     <>
