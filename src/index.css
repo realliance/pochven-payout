@@ -3,55 +3,55 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: "Triglavian";
-    src: url('/font/triglavian-completed.otf');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "Triglavian";
+  src: url("/font/triglavian-completed.otf");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: "Rubik Mono One";
-    src: url('/font/RubikMonoOne-Regular.ttf');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "Rubik Mono One";
+  src: url("/font/RubikMonoOne-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: "Atkinson Hyperlegible";
-    src: url('/font/Atkinson-Hyperlegible-Regular-102.ttf');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "Atkinson Hyperlegible";
+  src: url("/font/Atkinson-Hyperlegible-Regular-102.ttf");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: "Atkinson Hyperlegible";
-    src: url('/font/Atkinson-Hyperlegible-Bold-102.ttf');
-    font-weight: bold;
-    font-style: normal;
+  font-family: "Atkinson Hyperlegible";
+  src: url("/font/Atkinson-Hyperlegible-Bold-102.ttf");
+  font-weight: bold;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: "Atkinson Hyperlegible";
-    src: url('/font/Atkinson-Hyperlegible-Italic-102.ttf');
-    font-weight: normal;
-    font-style: italic;
+  font-family: "Atkinson Hyperlegible";
+  src: url("/font/Atkinson-Hyperlegible-Italic-102.ttf");
+  font-weight: normal;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: "Atkinson Hyperlegible";
-    src: url('/font/Atkinson-Hyperlegible-BoldItalic-102.ttf');
-    font-weight: bold;
-    font-style: italic;
+  font-family: "Atkinson Hyperlegible";
+  src: url("/font/Atkinson-Hyperlegible-BoldItalic-102.ttf");
+  font-weight: bold;
+  font-style: italic;
 }
 
 .mono-one {
-    font-family: "Rubik Mono One", sans-serif;
+  font-family: "Rubik Mono One", sans-serif;
 }
 
 .triangle {
-    font-family: "Triglavian", sans-serif;
+  font-family: "Triglavian", sans-serif;
 }
 
 body {
-    font-family: "Atkinson Hyperlegible", sans-serif;
+  font-family: "Atkinson Hyperlegible", sans-serif;
 }

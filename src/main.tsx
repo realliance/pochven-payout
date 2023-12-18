@@ -1,15 +1,15 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
-import { AuthContextProvider } from './contexts/AuthContext.tsx'
-import { Flowbite } from 'flowbite-react'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
+import { AuthContextProvider } from "./contexts/AuthContext.tsx";
+import { Flowbite } from "flowbite-react";
 import { LazyMotion } from "framer-motion";
 
 const loadFeatures = () =>
-  import("./framerFeatures").then(res => res.default)
+  import("./framerFeatures").then((res) => res.default);
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <LazyMotion features={loadFeatures}>
       <Flowbite>
@@ -19,4 +19,4 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       </Flowbite>
     </LazyMotion>
   </React.StrictMode>,
-)
+);

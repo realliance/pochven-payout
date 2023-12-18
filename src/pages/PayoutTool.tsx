@@ -14,23 +14,35 @@ export function PayoutTool() {
       <p>{member.characterId}</p>
       <p>{member.name}</p>
     </div>
-  ))
+  ));
 
   return (
     <>
       <RevealText text="Pochven Payout" className="text-5xl" interval={150} />
       <div className="flex flex-row gap-3 items-center">
-        { identity?.portrait ? <Avatar img={identity?.portrait} rounded size="md" /> : <Avatar rounded />}
+        {identity?.portrait ? (
+          <Avatar img={identity?.portrait} rounded size="md" />
+        ) : (
+          <Avatar rounded />
+        )}
         <div className="flex flex-col">
-          { identity?.name ?? "Loading your Identity" }
+          {identity?.name ?? "Loading your Identity"}
           <div>
-            <a className="underline text-gray-400 hover:cursor-pointer" onClick={logout}>Log Out</a>
+            <a
+              className="underline text-gray-400 hover:cursor-pointer"
+              onClick={logout}
+            >
+              Log Out
+            </a>
           </div>
         </div>
       </div>
       <hr className="w-6 mb-10" />
-      <SetUpFleet currentFleetMembers={fleetMembers} setFleetMembers={setFleetMembers} />
+      <SetUpFleet
+        currentFleetMembers={fleetMembers}
+        setFleetMembers={setFleetMembers}
+      />
       {renderFleetMembers}
     </>
-  )
+  );
 }
