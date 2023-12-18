@@ -4,17 +4,11 @@ import { AuthContext } from "../contexts/AuthContext";
 import { FleetMember } from "../utils/fleet";
 import { RevealText } from "../components/RevealText";
 import { SetUpFleet } from "../components/SetUpFleet";
+import { MemberList } from "../components/MemberList";
 
 export function PayoutTool() {
   const { identity, logout } = useContext(AuthContext);
   const [fleetMembers, setFleetMembers] = useState<FleetMember[]>([]);
-
-  const renderFleetMembers = fleetMembers.map((member) => (
-    <div>
-      <p>{member.characterId}</p>
-      <p>{member.name}</p>
-    </div>
-  ));
 
   return (
     <>
@@ -42,7 +36,8 @@ export function PayoutTool() {
         currentFleetMembers={fleetMembers}
         setFleetMembers={setFleetMembers}
       />
-      {renderFleetMembers}
+      <hr className="w-6 mb-5" />
+      <MemberList members={fleetMembers} />
     </>
   );
 }

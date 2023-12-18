@@ -79,7 +79,7 @@ export function SetUpFleet({
 
   return (
     <>
-      <RevealText text="Configure the Fleet" className="text-2xl" />
+      <RevealText text="Add Fleet Members" className="text-2xl" />
       <Button
         outline
         gradientDuoTone="pinkToOrange"
