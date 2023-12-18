@@ -2,10 +2,10 @@ import Cookies from 'js-cookie';
 import * as oauth from 'oauth4webapi';
 import * as uuid from 'uuid';
 
-const REDIRECT_URI = import.meta.env.PROD ? "" : "http://localhost:5173";
+const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI ?? "http://localhost:5173";
 
 const client: oauth.Client = {
-  client_id: import.meta.env.PROD ? "" : "9229c7b41eb84f3d85487fca0a5129b6",
+  client_id: import.meta.env.VITE_CLIENT_ID ?? "9229c7b41eb84f3d85487fca0a5129b6",
   token_endpoint_auth_method: "none",
 };
 
