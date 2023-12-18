@@ -7,6 +7,15 @@ interface FleetContext {
     autoMode: boolean;
     userFleet?: CharacterFleet;
     fleetMembers?: FleetMembers;
+    reload: () => void;
+}
+
+export interface FleetMember {
+    characterId: number;
+    name: string;
+    altOfId?: string;
+    eligible: boolean;
+    partOfSitePayout: boolean;
 }
 
 export function useFleetAPI(): FleetContext {
@@ -22,6 +31,7 @@ export function useFleetAPI(): FleetContext {
             if (loading && token && identity?.id) {
                 const { data: fleetData, error: fleetError } = await fleet(token, identity?.id);
                 if (fleetError) {
+                    setLoading(false);
                     setUserFleet(undefined);
                     setFleetMembers(undefined);
                     console.info(fleetError);
@@ -57,5 +67,8 @@ export function useFleetAPI(): FleetContext {
         autoMode,
         userFleet,
         fleetMembers,
+        reload: () => {
+            setLoading(true);
+        }
     }
 }

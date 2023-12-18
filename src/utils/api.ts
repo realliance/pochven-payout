@@ -1,7 +1,7 @@
 import createClient from "openapi-fetch";
 import { paths } from "./eve";
 
-const { GET, PUT } = createClient<paths>({ baseUrl: "https://esi.evetech.net/latest" });
+const { GET, PUT, POST } = createClient<paths>({ baseUrl: "https://esi.evetech.net/latest" });
 
 export type CharacterProfile = paths['/characters/{character_id}/']['get']['responses']['200']['schema'];
 export const character = async (token: string, id: number) => await GET("/characters/{character_id}/", {
@@ -74,3 +74,17 @@ export const getFleetMembers = async (token: string, fleetId: number) => await G
         "Authorization": `Bearer ${token}`,
     }
 });
+
+export type IdLookUpFromNames = paths['/universe/ids/']['post']['responses']['200']['schema'];
+export const idFromNames = async (token: string, names: string[]) => {
+    const res = await fetch("https://esi.evetech.net/latest/universe/ids/?datasource=tranquility", {
+        method: "POST",
+        body: JSON.stringify(names),
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Accept-Language": "en",
+        }
+    });
+
+    return res.json()
+}

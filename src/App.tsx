@@ -21,7 +21,7 @@ function App() {
   const loadingComponent = useMemo(() => loading ? <Loading /> : page, [loading, page]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen gap-2">
+    <div className="container mx-auto flex flex-col items-center justify-center h-screen gap-2">
       {loadingComponent}
     </div>
   )

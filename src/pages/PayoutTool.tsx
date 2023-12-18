@@ -1,17 +1,24 @@
 import { Avatar } from "flowbite-react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
-import { useFleetAPI } from "../utils/fleet";
+import { FleetMember } from "../utils/fleet";
+import { RevealText } from "../components/RevealText";
+import { SetUpFleet } from "../components/SetUpFleet";
 
 export function PayoutTool() {
   const { identity, logout } = useContext(AuthContext);
-  const fleetContext = useFleetAPI();
+  const [fleetMembers, setFleetMembers] = useState<FleetMember[]>([]);
 
-  console.log(fleetContext);
+  const renderFleetMembers = fleetMembers.map((member) => (
+    <div>
+      <p>{member.characterId}</p>
+      <p>{member.name}</p>
+    </div>
+  ))
 
   return (
     <>
-      <h1 className="text-4xl mono-one">Pochven Payout</h1>
+      <RevealText text="Pochven Payout" className="text-5xl" interval={150} />
       <div className="flex flex-row gap-3 items-center">
         { identity?.portrait ? <Avatar img={identity?.portrait} rounded size="md" /> : <Avatar rounded />}
         <div className="flex flex-col">
@@ -21,6 +28,9 @@ export function PayoutTool() {
           </div>
         </div>
       </div>
+      <hr className="w-6 mb-10" />
+      <SetUpFleet currentFleetMembers={fleetMembers} setFleetMembers={setFleetMembers} />
+      {renderFleetMembers}
     </>
   )
 }
