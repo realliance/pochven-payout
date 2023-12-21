@@ -1,14 +1,14 @@
 import { Avatar } from "flowbite-react";
 import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
-import { FleetMember } from "../utils/fleet";
+import { FleetMemberTable } from "../utils/fleet";
 import { RevealText } from "../components/RevealText";
 import { SetUpFleet } from "../components/SetUpFleet";
 import { MemberList } from "../components/MemberList";
 
 export function PayoutTool() {
   const { identity, logout } = useContext(AuthContext);
-  const [fleetMembers, setFleetMembers] = useState<FleetMember[]>([]);
+  const [fleetMembers, setFleetMembers] = useState<FleetMemberTable>({});
 
   return (
     <>
@@ -37,7 +37,7 @@ export function PayoutTool() {
         setFleetMembers={setFleetMembers}
       />
       <hr className="w-6 mb-5" />
-      <MemberList members={fleetMembers} />
+      <MemberList members={fleetMembers} setFleetMembers={setFleetMembers} />
     </>
   );
 }

@@ -10,10 +10,14 @@ interface FleetContext {
   reload: () => void;
 }
 
+export interface FleetMemberTable {
+  [characterId: string]: FleetMember;
+}
+
 export interface FleetMember {
   characterId: number;
   name: string;
-  altOfId?: string;
+  altOfId?: number;
   eligible: boolean;
   partOfSitePayout: boolean;
 }

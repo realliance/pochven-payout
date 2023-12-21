@@ -1,5 +1,5 @@
 import { Button, Label, Spinner, Textarea } from "flowbite-react";
-import { FleetMember, useFleetAPI } from "../utils/fleet";
+import { FleetMember, FleetMemberTable, useFleetAPI } from "../utils/fleet";
 import { RevealText } from "./RevealText";
 import { FaArrowRotateRight, FaCircleXmark, FaUsers } from "react-icons/fa6";
 import { useContext, useMemo, useState } from "react";
@@ -22,8 +22,8 @@ const notOfRole = (
 );
 
 interface SetupFleetProps {
-  currentFleetMembers: FleetMember[];
-  setFleetMembers: (fleetMembers: FleetMember[]) => void;
+  currentFleetMembers: FleetMemberTable;
+  setFleetMembers: (fleetMembers: FleetMemberTable) => void;
 }
 
 export function SetUpFleet({
@@ -65,8 +65,13 @@ export function SetUpFleet({
           };
         }) ?? [];
 
+      const fleetTableAddition: FleetMemberTable = {};
+      newFleetMembers.forEach((member) => {
+        fleetTableAddition[member.characterId] = member;
+      });
+
       setImportText("");
-      setFleetMembers([...currentFleetMembers, ...newFleetMembers]);
+      setFleetMembers({ ...currentFleetMembers, ...fleetTableAddition });
       setImportLoading(false);
     }
   };
