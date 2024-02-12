@@ -110,14 +110,14 @@ export function MemberList({ members, setFleetMembers }: MemberListProps) {
               {otherMemberOptions}
             </Select>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell className="text-center">
             <Checkbox
               checked={member.eligible}
               id="eligible"
               onChange={() => onEligibilityUpdate(member)}
             />
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell className="text-center">
             <Checkbox
               checked={member.partOfSitePayout}
               id="part-of-payout"
@@ -139,8 +139,10 @@ export function MemberList({ members, setFleetMembers }: MemberListProps) {
             </Table.HeadCell>
             <Table.HeadCell>Name</Table.HeadCell>
             <Table.HeadCell>Main/Alt</Table.HeadCell>
-            <Table.HeadCell>Eligible?</Table.HeadCell>
-            <Table.HeadCell>In this Payout?</Table.HeadCell>
+            <Table.HeadCell className="text-center">Eligible?</Table.HeadCell>
+            <Table.HeadCell className="text-center">
+              In this Payout?
+            </Table.HeadCell>
           </Table.Head>
           <Table.Body className="divide-y">
             <AnimatePresence>{list}</AnimatePresence>
@@ -155,9 +157,9 @@ export function MemberList({ members, setFleetMembers }: MemberListProps) {
   );
 
   return (
-    <>
-      <RevealText text="Manage Fleet" className="text-2xl" />
+    <div className="w-full xl:w-3/4 px-2 mt-2">
+      <RevealText text="Manage Fleet" className="text-2xl mb-1" />
       {table}
-    </>
+    </div>
   );
 }

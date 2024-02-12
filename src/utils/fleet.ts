@@ -45,7 +45,7 @@ export function useFleetAPI(): FleetContext {
           setLoading(false);
           setUserFleet(undefined);
           setFleetMembers(undefined);
-          console.info(fleetError);
+          console.error(fleetError);
           return;
         }
 
@@ -73,7 +73,7 @@ export function useFleetAPI(): FleetContext {
         }
       }
 
-      setLoading(false);
+      setTimeout(() => setLoading(false), 250);
     };
 
     run();

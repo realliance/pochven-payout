@@ -31,12 +31,10 @@ export function PayoutTool() {
           </div>
         </div>
       </div>
-      <hr className="w-6 mb-10" />
       <SetUpFleet
         currentFleetMembers={fleetMembers}
         setFleetMembers={setFleetMembers}
       />
-      <hr className="w-6 mb-5" />
       <MemberList members={fleetMembers} setFleetMembers={setFleetMembers} />
     </>
   );

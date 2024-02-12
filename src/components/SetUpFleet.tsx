@@ -17,7 +17,7 @@ const loadingButtonContent = (
 const notOfRole = (
   <>
     <FaCircleXmark />
-    <span className="pl-3">Cannot Auto Import</span>
+    <span className="pl-3">Cannot Import Automatically</span>
   </>
 );
 
@@ -48,7 +48,9 @@ export function SetUpFleet({
     [fleetMembers],
   );
 
-  const importMembersFromList = async () => {
+  const importMembersFromList = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     if (token) {
       setImportLoading(true);
       const splitText = importText.split("\n");
@@ -72,7 +74,7 @@ export function SetUpFleet({
 
       setImportText("");
       setFleetMembers({ ...currentFleetMembers, ...fleetTableAddition });
-      setImportLoading(false);
+      setTimeout(() => setImportLoading(false), 100);
     }
   };
 
@@ -87,24 +89,29 @@ export function SetUpFleet({
       <RevealText text="Add Fleet Members" className="text-2xl" />
       <Button
         outline
-        gradientDuoTone="pinkToOrange"
+        gradientDuoTone="purpleToPink"
         disabled={!isFleetCommander}
       >
-        {autoImportButtonContent}
+        <span className="flex flex-row items-center">
+          {autoImportButtonContent}
+        </span>
       </Button>
       <div
-        className="text-sm flex flex-row gap-1 text-gray-400 hover:cursor-pointer"
+        className="text-sm flex flex-row gap-1 text-gray-400 hover:cursor-pointer items-center"
         onClick={reload}
       >
         <FaArrowRotateRight className="w-3" />
         <span className="underline">Refresh Fleet Status</span>
       </div>
-      <div className="w-full flex flex-col gap-2">
+      <form
+        className="w-full lg:w-1/2 flex flex-col gap-2 px-2"
+        onSubmit={importMembersFromList}
+      >
         <div className="block">
           <Label
             htmlFor="memberImport"
             value="Import Members"
-            className="text-xl"
+            className="text-xl mono-one"
           />
         </div>
         <Textarea
@@ -113,18 +120,22 @@ export function SetUpFleet({
           required
           rows={6}
           value={importText}
+          disabled={importLoading}
           onInput={(e) => setImportText(e.currentTarget.value)}
         />
         <Button
           outline
-          gradientDuoTone="pinkToOrange"
+          gradientDuoTone="purpleToPink"
           fullSized
           disabled={importLoading}
-          onClick={importMembersFromList}
+          type="submit"
         >
-          {importLoading && <Spinner size="sm" />} Import
+          <span className="flex flex-row gap-1 items-center">
+            {importLoading && <Spinner size="sm" />}
+            <span>Import</span>
+          </span>
         </Button>
-      </div>
+      </form>
     </>
   );
 }
