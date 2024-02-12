@@ -6,6 +6,7 @@ import { RevealText } from "../components/RevealText";
 import { SetUpFleet } from "../components/SetUpFleet";
 import { MemberList } from "../components/MemberList";
 import { ShareEditor, ShareSettings } from "../components/ShareEditor";
+import { PayIn } from "../components/PayIn";
 
 export function PayoutTool() {
   const { identity, logout } = useContext(AuthContext);
@@ -43,6 +44,7 @@ export function PayoutTool() {
         setFleetMembers={setFleetMembers}
       />
       <MemberList members={fleetMembers} setFleetMembers={setFleetMembers} />
+      <PayIn fleetMembers={fleetMembers} />
       <ShareEditor
         fleetMembers={fleetMembers}
         settings={shareSettings}

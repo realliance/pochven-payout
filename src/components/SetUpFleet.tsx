@@ -63,7 +63,7 @@ export function SetUpFleet({
             characterId: char.id!,
             name: char.name!,
             eligible: true,
-            partOfSitePayout: true,
+            partOfSitePayout: false,
           };
         }) ?? [];
 
@@ -86,7 +86,7 @@ export function SetUpFleet({
 
   return (
     <>
-      <RevealText text="Add Fleet Members" className="text-3xl" />
+      <RevealText text="Manage Fleet" className="text-3xl" />
       <Button
         outline
         gradientDuoTone="purpleToPink"

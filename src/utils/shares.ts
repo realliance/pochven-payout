@@ -15,7 +15,7 @@ export function calculateShares(
 
   // Get all "Mains"
   allMembers
-    .filter((member) => member.eligible && member.partOfSitePayout)
+    .filter((member) => member.eligible)
     .filter((member) => member.altOfId === undefined)
     .forEach((member) => {
       altGroups[member.characterId] = {
@@ -26,7 +26,7 @@ export function calculateShares(
 
   // Get all "Alts"
   allMembers
-    .filter((member) => member.eligible && member.partOfSitePayout)
+    .filter((member) => member.eligible)
     .filter((member) => member.altOfId !== undefined)
     .forEach((member) => {
       altGroups[member.altOfId!].alts.push(member);

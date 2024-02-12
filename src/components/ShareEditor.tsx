@@ -146,8 +146,7 @@ export function ShareEditor({
               nameKey="name"
               cx="50%"
               cy="50%"
-              outerRadius="50%"
-              fill="#8884d8"
+              outerRadius="60%"
               label={renderLabel}
             >
               {shareData.map((_entry, index) => (

@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 import { FleetMember, FleetMemberTable } from "../utils/fleet";
 import { Avatar, Checkbox, Select, Table } from "flowbite-react";
-import { RevealText } from "./RevealText";
 import { AnimatePresence } from "framer-motion";
 import { m } from "framer-motion";
 
@@ -130,36 +129,35 @@ export function MemberList({ members, setFleetMembers }: MemberListProps) {
   }, [members]);
 
   const table = useMemo(
-    () =>
-      list.length > 0 ? (
-        <Table striped className="w-full dark:bg-slate-800 rounded">
-          <Table.Head>
-            <Table.HeadCell>
-              <span className="sr-only">Character Portrait</span>
-            </Table.HeadCell>
-            <Table.HeadCell>Name</Table.HeadCell>
-            <Table.HeadCell>Main/Alt</Table.HeadCell>
-            <Table.HeadCell className="text-center">Eligible?</Table.HeadCell>
-            <Table.HeadCell className="text-center">
-              In this Payout?
-            </Table.HeadCell>
-          </Table.Head>
-          <Table.Body className="divide-y">
-            <AnimatePresence>{list}</AnimatePresence>
-          </Table.Body>
-        </Table>
-      ) : (
-        <p className="text-gray-400">
-          Fleet Members will appear here once added.
-        </p>
-      ),
+    () => (
+      <Table striped className="w-full dark:bg-slate-800 rounded">
+        <Table.Head>
+          <Table.HeadCell>
+            <span className="sr-only">Character Portrait</span>
+          </Table.HeadCell>
+          <Table.HeadCell>Name</Table.HeadCell>
+          <Table.HeadCell>Main/Alt</Table.HeadCell>
+          <Table.HeadCell className="text-center">Eligible?</Table.HeadCell>
+          <Table.HeadCell className="text-center">
+            In this Payout?
+          </Table.HeadCell>
+        </Table.Head>
+        <Table.Body className="divide-y">
+          <AnimatePresence>{list}</AnimatePresence>
+        </Table.Body>
+      </Table>
+    ),
     [list],
   );
 
   return (
     <div className="w-full xl:w-3/4 px-2 mt-2">
-      <RevealText text="Manage Fleet" className="text-2xl mb-1" />
       {table}
+      {list.length === 0 ? (
+        <p className="text-gray-400 text-center py-6">
+          Fleet Members will appear here once added.
+        </p>
+      ) : null}{" "}
     </div>
   );
 }
