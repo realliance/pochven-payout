@@ -10,7 +10,7 @@ export function GetStarted() {
   const { isDarkMode } = useDarkMode();
 
   return (
-    <>
+    <div className="flex flex-col items-center justify-center h-screen gap-4">
       <RevealText text="Pochven Payout" className="text-4xl" />
       <button onClick={beginAuthFlow} className="cursor-pointer">
         <m.img
@@ -21,6 +21,6 @@ export function GetStarted() {
           src={isDarkMode ? ssoLight : ssoDark}
         />
       </button>
-    </>
+    </div>
   );
 }

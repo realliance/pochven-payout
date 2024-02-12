@@ -5,13 +5,20 @@ import { FleetMemberTable } from "../utils/fleet";
 import { RevealText } from "../components/RevealText";
 import { SetUpFleet } from "../components/SetUpFleet";
 import { MemberList } from "../components/MemberList";
+import { ShareEditor, ShareSettings } from "../components/ShareEditor";
 
 export function PayoutTool() {
   const { identity, logout } = useContext(AuthContext);
   const [fleetMembers, setFleetMembers] = useState<FleetMemberTable>({});
+  const [shareSettings, setShareSettings] = useState<ShareSettings>({
+    sharesPerMain: 1,
+    sharesPerAlt: 0.5,
+    sharesTotal: 2.5,
+    corpsTaxPercentage: 0.15,
+  });
 
   return (
-    <>
+    <div className="container mx-auto flex flex-col items-center justify-center gap-4 pt-12">
       <RevealText text="Pochven Payout" className="text-5xl" interval={150} />
       <div className="flex flex-row gap-3 items-center">
         {identity?.portrait ? (
@@ -36,6 +43,11 @@ export function PayoutTool() {
         setFleetMembers={setFleetMembers}
       />
       <MemberList members={fleetMembers} setFleetMembers={setFleetMembers} />
-    </>
+      <ShareEditor
+        fleetMembers={fleetMembers}
+        settings={shareSettings}
+        setSettings={setShareSettings}
+      />
+    </div>
   );
 }

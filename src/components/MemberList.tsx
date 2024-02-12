@@ -5,12 +5,12 @@ import { RevealText } from "./RevealText";
 import { AnimatePresence } from "framer-motion";
 import { m } from "framer-motion";
 
-interface MemberWithAlts {
+export interface MemberWithAlts {
   member: FleetMember;
   alts: FleetMember[];
 }
 
-interface FleetGroupByAlt {
+export interface FleetGroupByAlt {
   [characterId: string]: MemberWithAlts;
 }
 

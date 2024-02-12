@@ -26,11 +26,7 @@ function App() {
     [loading, page],
   );
 
-  return (
-    <div className="container mx-auto flex flex-col items-center justify-center h-screen gap-4">
-      {loadingComponent}
-    </div>
-  );
+  return loadingComponent;
 }
 
 export default App;
