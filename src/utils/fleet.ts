@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { CharacterFleet, FleetMembers, fleet, getFleetMembers } from "./api";
 import { AuthContext } from "../contexts/AuthContext";
+import { FleetGroupByAlt } from "../components/MemberList";
 
 interface FleetContext {
   loading: boolean;
@@ -88,4 +89,31 @@ export function useFleetAPI(): FleetContext {
       setLoading(true);
     },
   };
+}
+
+export function groupFleetByMains(
+  fleetMembers: FleetMember[],
+): FleetGroupByAlt {
+  const altGroups: FleetGroupByAlt = {};
+
+  // Get all "Mains"
+  fleetMembers
+    .filter((member) => member.eligible)
+    .filter((member) => member.altOfId === undefined)
+    .forEach((member) => {
+      altGroups[member.characterId] = {
+        member,
+        alts: [],
+      };
+    });
+
+  // Get all "Alts"
+  fleetMembers
+    .filter((member) => member.eligible)
+    .filter((member) => member.altOfId !== undefined)
+    .forEach((member) => {
+      altGroups[member.altOfId!].alts.push(member);
+    });
+
+  return altGroups;
 }

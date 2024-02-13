@@ -1,39 +1,63 @@
 import { Label, Table, TextInput } from "flowbite-react";
 import { RevealText } from "./RevealText";
 import { AnimatePresence } from "framer-motion";
-import { FleetMemberTable } from "../utils/fleet";
+import { FleetMemberTable, groupFleetByMains } from "../utils/fleet";
 import { useMemo } from "react";
 import { m } from "framer-motion";
 
-interface PayInProps {
-  fleetMembers: FleetMemberTable;
+export const FLASHPOINT_15_PER_PERSON = 236000000;
+
+export interface PayInContext {
+  expectedSitePayout: number;
 }
 
-export function PayIn({ fleetMembers }: PayInProps) {
+interface PayInProps {
+  fleetMembers: FleetMemberTable;
+  context: PayInContext;
+  setContext: (context: PayInContext) => void;
+}
+
+export function PayIn({ fleetMembers, context, setContext }: PayInProps) {
   const membersInPayout = useMemo(
     () =>
       Object.values(fleetMembers).filter((member) => member.partOfSitePayout),
     [fleetMembers],
   );
 
-  const list = useMemo(
+  const list = useMemo(() => {
+    // Get alt groups
+    const altGroups = groupFleetByMains(membersInPayout);
+
+    // Keep list small by only showing mains
+    const mains = membersInPayout.filter(
+      (member) => member.altOfId === undefined,
+    );
+
+    return mains.map((member) => (
+      <m.tr
+        className="bg-white dark:border-gray-700 dark:bg-gray-800"
+        key={member.characterId}
+        layout={true}
+        transition={{ type: "spring" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        <Table.Cell>{member.name}</Table.Cell>
+        <Table.Cell>{altGroups[member.characterId].alts.length + 1}</Table.Cell>
+        <Table.Cell>{new Intl.NumberFormat().format(0)}</Table.Cell>
+      </m.tr>
+    ));
+  }, [membersInPayout]);
+
+  const payOutPerCharacter = useMemo(
     () =>
-      // Only show mains to keep list small, wallet tracking logic will check off based on main-alt groups
-      membersInPayout.map((member) => (
-        <m.tr
-          className="bg-white dark:border-gray-700 dark:bg-gray-800"
-          key={member.characterId}
-          layout={true}
-          transition={{ type: "spring" }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          <Table.Cell>{member.name}</Table.Cell>
-          <Table.Cell>0</Table.Cell>
-        </m.tr>
-      )),
-    [membersInPayout],
+      membersInPayout.length > 0
+        ? `${new Intl.NumberFormat().format(
+            context.expectedSitePayout / membersInPayout.length,
+          )}`
+        : "???",
+    [membersInPayout, context],
   );
 
   return (
@@ -49,7 +73,22 @@ export function PayIn({ fleetMembers }: PayInProps) {
                 className="text-xl mono-one"
               />
             </div>
-            <TextInput id="large" type="number" addon="ISK" />
+            <TextInput
+              id="large"
+              addon="ISK"
+              value={new Intl.NumberFormat().format(context.expectedSitePayout)}
+              onChange={(event) => {
+                setContext({
+                  ...context,
+                  expectedSitePayout: Number(
+                    event.currentTarget.value
+                      .split("")
+                      .filter((c) => c !== ",")
+                      .join(""),
+                  ),
+                });
+              }}
+            />
           </div>
           <div>
             <div className="mb-1 block">
@@ -59,13 +98,19 @@ export function PayIn({ fleetMembers }: PayInProps) {
                 className="text-xl mono-one"
               />
             </div>
-            <TextInput id="large" type="number" addon="ISK" />
+            <TextInput
+              id="large"
+              addon="ISK"
+              disabled={true}
+              value={payOutPerCharacter}
+            />
           </div>
         </div>
         <div className="grow">
           <Table striped className="w-full dark:bg-slate-800 rounded">
             <Table.Head>
               <Table.HeadCell>Name</Table.HeadCell>
+              <Table.HeadCell>Characters in Payout</Table.HeadCell>
               <Table.HeadCell>ISK Received from Player</Table.HeadCell>
             </Table.Head>
             <Table.Body className="divide-y">

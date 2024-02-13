@@ -6,7 +6,11 @@ import { RevealText } from "../components/RevealText";
 import { SetUpFleet } from "../components/SetUpFleet";
 import { MemberList } from "../components/MemberList";
 import { ShareEditor, ShareSettings } from "../components/ShareEditor";
-import { PayIn } from "../components/PayIn";
+import {
+  FLASHPOINT_15_PER_PERSON,
+  PayIn,
+  PayInContext,
+} from "../components/PayIn";
 
 export function PayoutTool() {
   const { identity, logout } = useContext(AuthContext);
@@ -16,6 +20,10 @@ export function PayoutTool() {
     sharesPerAlt: 0.5,
     sharesTotal: 2.5,
     corpsTaxPercentage: 0.15,
+  });
+
+  const [payInContext, setPayInContext] = useState<PayInContext>({
+    expectedSitePayout: FLASHPOINT_15_PER_PERSON * 15,
   });
 
   return (
@@ -44,7 +52,11 @@ export function PayoutTool() {
         setFleetMembers={setFleetMembers}
       />
       <MemberList members={fleetMembers} setFleetMembers={setFleetMembers} />
-      <PayIn fleetMembers={fleetMembers} />
+      <PayIn
+        fleetMembers={fleetMembers}
+        context={payInContext}
+        setContext={setPayInContext}
+      />
       <ShareEditor
         fleetMembers={fleetMembers}
         settings={shareSettings}

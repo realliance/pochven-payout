@@ -1,6 +1,6 @@
 import { FleetGroupByAlt } from "../components/MemberList";
 import { ShareSettings } from "../components/ShareEditor";
-import { FleetMember } from "./fleet";
+import { FleetMember, groupFleetByMains } from "./fleet";
 
 export interface Share {
   name: string;
@@ -11,26 +11,7 @@ export function calculateShares(
   settings: ShareSettings,
   allMembers: FleetMember[],
 ): Share[] {
-  const altGroups: FleetGroupByAlt = {};
-
-  // Get all "Mains"
-  allMembers
-    .filter((member) => member.eligible)
-    .filter((member) => member.altOfId === undefined)
-    .forEach((member) => {
-      altGroups[member.characterId] = {
-        member,
-        alts: [],
-      };
-    });
-
-  // Get all "Alts"
-  allMembers
-    .filter((member) => member.eligible)
-    .filter((member) => member.altOfId !== undefined)
-    .forEach((member) => {
-      altGroups[member.altOfId!].alts.push(member);
-    });
+  const altGroups: FleetGroupByAlt = groupFleetByMains(allMembers);
 
   const shares: Share[] = Object.values(altGroups).map((memberWithAlts) => {
     return {

@@ -1,5 +1,9 @@
 import { useMemo } from "react";
-import { FleetMember, FleetMemberTable } from "../utils/fleet";
+import {
+  FleetMember,
+  FleetMemberTable,
+  groupFleetByMains,
+} from "../utils/fleet";
 import { Avatar, Checkbox, Select, Table } from "flowbite-react";
 import { AnimatePresence } from "framer-motion";
 import { m } from "framer-motion";
@@ -44,22 +48,9 @@ export function MemberList({ members, setFleetMembers }: MemberListProps) {
   };
 
   const list = useMemo(() => {
-    const altGroups: FleetGroupByAlt = {};
-    const allMembers = Object.values(members);
-    allMembers
-      .filter((member) => member.altOfId === undefined)
-      .forEach((member) => {
-        altGroups[member.characterId] = {
-          member,
-          alts: [],
-        };
-      });
-
-    allMembers
-      .filter((member) => member.altOfId !== undefined)
-      .forEach((member) => {
-        altGroups[member.altOfId!].alts.push(member);
-      });
+    const altGroups: FleetGroupByAlt = groupFleetByMains(
+      Object.values(members),
+    );
 
     const altGroupsSorted = Object.values(altGroups).sort((a, b) =>
       a.member.name < b.member.name ? -1 : 1,
