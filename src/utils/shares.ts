@@ -27,7 +27,5 @@ export function calculateShares(
     };
   });
 
-  console.log(shares);
-
   return shares;
 }

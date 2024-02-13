@@ -98,7 +98,6 @@ export function groupFleetByMains(
 
   // Get all "Mains"
   fleetMembers
-    .filter((member) => member.eligible)
     .filter((member) => member.altOfId === undefined)
     .forEach((member) => {
       altGroups[member.characterId] = {
@@ -109,7 +108,6 @@ export function groupFleetByMains(
 
   // Get all "Alts"
   fleetMembers
-    .filter((member) => member.eligible)
     .filter((member) => member.altOfId !== undefined)
     .forEach((member) => {
       altGroups[member.altOfId!].alts.push(member);

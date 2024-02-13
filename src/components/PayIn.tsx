@@ -4,6 +4,7 @@ import { AnimatePresence } from "framer-motion";
 import { FleetMemberTable, groupFleetByMains } from "../utils/fleet";
 import { useMemo } from "react";
 import { m } from "framer-motion";
+import { NumberInput } from "../utils/form";
 
 export const FLASHPOINT_15_PER_PERSON = 236000000;
 
@@ -65,46 +66,20 @@ export function PayIn({ fleetMembers, context, setContext }: PayInProps) {
       <RevealText text="Pay In" className="text-3xl mb-1" />
       <div className="w-full flex flex-row gap-10 my-6">
         <div className="flex flex-col gap-6">
-          <div>
-            <div className="mb-1 block">
-              <Label
-                htmlFor={"pay-in"}
-                value={"Expected Site Payout"}
-                className="text-xl mono-one"
-              />
-            </div>
-            <TextInput
-              id="large"
-              addon="ISK"
-              value={new Intl.NumberFormat().format(context.expectedSitePayout)}
-              onChange={(event) => {
-                setContext({
-                  ...context,
-                  expectedSitePayout: Number(
-                    event.currentTarget.value
-                      .split("")
-                      .filter((c) => c !== ",")
-                      .join(""),
-                  ),
-                });
-              }}
-            />
-          </div>
-          <div>
-            <div className="mb-1 block">
-              <Label
-                htmlFor={"pay-per-person"}
-                value={"Expected Site Payout per Character"}
-                className="text-xl mono-one"
-              />
-            </div>
-            <TextInput
-              id="large"
-              addon="ISK"
-              disabled={true}
-              value={payOutPerCharacter}
-            />
-          </div>
+          <NumberInput
+            id="pay-in"
+            addon="ISK"
+            label="Expected Site Payout"
+            value={context.expectedSitePayout}
+            setValue={(expectedSitePayout) =>
+              setContext({ ...context, expectedSitePayout })
+            }
+          />
+          <NumberInput
+            id="pay-per-person"
+            label="Expected Site Payout per Character"
+            value={payOutPerCharacter}
+          />
         </div>
         <div className="grow">
           <Table striped className="w-full dark:bg-slate-800 rounded">

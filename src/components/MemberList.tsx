@@ -33,8 +33,8 @@ export function MemberList({ members, setFleetMembers }: MemberListProps) {
 
   const onEligibilityUpdate = (member: FleetMember) => {
     const newTable: FleetMemberTable = { ...members };
-    newTable[member.characterId].eligible =
-      !newTable[member.characterId].eligible;
+    const eligible = !newTable[member.characterId].eligible;
+    newTable[member.characterId].eligible = eligible;
 
     setFleetMembers(newTable);
   };
