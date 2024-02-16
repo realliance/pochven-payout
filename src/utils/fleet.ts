@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { CharacterFleet, FleetMembers, fleet, getFleetMembers } from "./api";
 import { AuthContext } from "../contexts/AuthContext";
-import { FleetGroupByAlt } from "../components/MemberList";
+import { FleetGroupByAlt, MemberWithAlts } from "../components/MemberList";
 
 interface FleetContext {
   loading: boolean;
@@ -91,6 +91,13 @@ export function useFleetAPI(): FleetContext {
   };
 }
 
+export function groupCharacterIds(memberWithAlts: MemberWithAlts): number[] {
+  return [
+    memberWithAlts.member.characterId,
+    ...memberWithAlts.alts.map((member) => member.characterId),
+  ];
+}
+
 export function groupFleetByMains(
   fleetMembers: FleetMember[],
 ): FleetGroupByAlt {
@@ -110,7 +117,16 @@ export function groupFleetByMains(
   fleetMembers
     .filter((member) => member.altOfId !== undefined)
     .forEach((member) => {
-      altGroups[member.altOfId!].alts.push(member);
+      // Alts to Main Groups
+      if (altGroups[member.altOfId!]) {
+        altGroups[member.altOfId!].alts.push(member);
+      } else {
+        // An alt was added without the main in the group. In this case, we'll make them their own main.
+        altGroups[member.characterId] = {
+          member,
+          alts: [],
+        };
+      }
     });
 
   return altGroups;

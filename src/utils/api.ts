@@ -103,3 +103,23 @@ export const idFromNames = async (token: string, names: string[]) => {
 
   return res.json();
 };
+
+export type CharacterWalletJournalEntries =
+  paths["/characters/{character_id}/wallet/journal/"]["get"]["responses"]["200"]["schema"];
+export const getWalletJournal = async (token: string, id: number) =>
+  await GET("/characters/{character_id}/wallet/journal/", {
+    params: {
+      path: {
+        character_id: id,
+      },
+      query: {
+        datasource: "tranquility",
+      },
+      header: {
+        "If-None-Match": undefined,
+      },
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });

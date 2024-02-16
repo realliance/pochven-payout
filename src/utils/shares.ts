@@ -1,5 +1,5 @@
 import { FleetGroupByAlt } from "../components/MemberList";
-import { ShareSettings } from "../components/ShareEditor";
+import { ShareSettings, TaxType } from "../components/ShareEditor";
 import { FleetMember, groupFleetByMains } from "./fleet";
 
 export interface Share {
@@ -29,3 +29,13 @@ export function calculateShares(
 
   return shares;
 }
+
+export const taxToPercentage = (
+  taxType: TaxType,
+  taxValue: number,
+  numericalTotal: number,
+) =>
+  taxType === TaxType.Percent
+    ? taxValue
+    : // Flat Rate converted to percent of payout
+      taxValue / numericalTotal;

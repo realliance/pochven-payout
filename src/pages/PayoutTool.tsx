@@ -5,11 +5,7 @@ import { FleetMemberTable } from "../utils/fleet";
 import { RevealText } from "../components/RevealText";
 import { SetUpFleet } from "../components/SetUpFleet";
 import { MemberList } from "../components/MemberList";
-import {
-  CorporationTaxType,
-  ShareEditor,
-  ShareSettings,
-} from "../components/ShareEditor";
+import { TaxType, ShareEditor, ShareSettings } from "../components/ShareEditor";
 import {
   FLASHPOINT_15_PER_PERSON,
   PayIn,
@@ -23,8 +19,10 @@ export function PayoutTool() {
     sharesPerMain: 1,
     sharesPerAlt: 0.5,
     sharesTotal: 2.5,
-    corpTaxType: CorporationTaxType.Flat,
-    corpTaxValue: 500_000_000,
+    corpTaxType: TaxType.Percent,
+    corpTaxValue: 0.1,
+    sigTaxType: TaxType.Flat,
+    sigTaxValue: 500_000_000,
   });
 
   const [payInContext, setPayInContext] = useState<PayInContext>({
@@ -61,6 +59,7 @@ export function PayoutTool() {
         fleetMembers={fleetMembers}
         context={payInContext}
         setContext={setPayInContext}
+        settings={shareSettings}
       />
       <ShareEditor
         fleetMembers={fleetMembers}
