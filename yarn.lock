@@ -3886,9 +3886,9 @@ normalize-range@^0.1.2:
   integrity sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==
 
 oauth4webapi@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/oauth4webapi/-/oauth4webapi-2.4.0.tgz#2a5e75996a33878cced3f367753aa42f21d36e27"
-  integrity sha512-ZWl8ov8HeGVyc9Icl1cag76HvIcDAp23eIIT+UVGir+dEu8BMgMlvZeZwqLVd0P8DqaumH4N+QLQXN69G1QjSA==
+  version "2.11.1"
+  resolved "https://registry.yarnpkg.com/oauth4webapi/-/oauth4webapi-2.11.1.tgz#8d79e6b0d54ead203094f185a11031f3f9978465"
+  integrity sha512-aNzOnL98bL6izG97zgnZs1PFEyO4WDVRhz2Pd066NPak44w5ESLRCYmJIyey8avSBPOMtBjhF3ZDDm7bIb7UOg==
 
 object-assign@^4.0.1, object-assign@^4.1.1:
   version "4.1.1"
